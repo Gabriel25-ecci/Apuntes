@@ -9,9 +9,8 @@ Los sistemas de primer orden son fundamentales en el estudio de la dinámica de 
 ### 1.1 Ecuación diferencial general
 
 🔑 > *Ecuación de primer orden*: Ecuación que relaciona la derivada de una variable dependiente con ella misma y una entrada forzada. Su forma general es:
-$$
-a \frac{dy(t)}{dt} + b y(t) = c u(t)
-$$
+<p align="center"><img src="https://latex.codecogs.com/png.image?\dpi{110}&space;a\frac{dy(t)}{dt}+by(t)=cu(t)" /></p>
+
 
 ### 1.2 Función de transferencia
 
