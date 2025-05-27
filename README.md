@@ -1,159 +1,211 @@
-# 📘 Resumen de Dinámica de Sistemas
+# Clase: Sistemas de Primer Orden
 
-Autor: *Nombre del estudiante*  
-Curso: Sexto semestre - Ingeniería  
-Profesor: Ing. Jorge Eduardo Cote Ballesteros  
-Año: 2025
+Los sistemas de primer orden son fundamentales en el estudio de la dinámica de sistemas, ya que representan el comportamiento de muchos procesos físicos reales como tanques hidráulicos, circuitos eléctricos RC o sistemas térmicos simples. En esta clase aprenderemos a identificar su ecuación característica, hallar su función de transferencia, y analizar su comportamiento temporal frente a diferentes tipos de entrada.
 
 ---
 
-## Índice
+## 1. Estructura y forma general
 
-1. [Sistemas Hidráulicos y Térmicos](#1-sistemas-hidráulicos-y-térmicos)
-2. [Función de Transferencia](#2-función-de-transferencia)
-3. [Modelamiento con Diagramas de Bloques](#3-modelamiento-con-diagramas-de-bloques)
-4. [Álgebra de Bloques](#4-álgebra-de-bloques)
-5. [Diagramas de Flujo de Señal](#5-diagramas-de-flujo-de-señal)
-6. [Sistemas de Primer Orden](#6-sistemas-de-primer-orden)
-7. [Sistemas de Segundo Orden](#7-sistemas-de-segundo-orden)
+### 1.1 Ecuación diferencial general
 
----
+🔑 > *Ecuación de primer orden*: Ecuación que relaciona la derivada de una variable dependiente con ella misma y una entrada forzada. Su forma general es:
+$$
+a \frac{dy(t)}{dt} + b y(t) = c u(t)
+$$
 
-## 1. Sistemas Hidráulicos y Térmicos
+### 1.2 Función de transferencia
 
-### 🔹 Sistemas Hidráulicos
+🔑 > *Función de transferencia*: Relación entre la salida y entrada de un sistema en el dominio de Laplace con condiciones iniciales cero.
+$$
+G(s) = \frac{Y(s)}{U(s)} = \frac{c}{as + b}
+$$
 
-**Tanque simple:**
-\[
-A_1 \frac{dh_1}{dt} = q_i - \frac{h_1}{R_1}
-\]
+### 1.3 Forma canónica
 
-**Dos tanques interconectados:**
-\[
-\begin{cases}
-A_1 \frac{dh_1}{dt} = q_i - \frac{h_1 - h_2}{R_1} \\
-A_2 \frac{dh_2}{dt} = \frac{h_1 - h_2}{R_1} - \frac{h_2}{R_2}
-\end{cases}
-\]
-
-### 🔹 Sistemas Térmicos
-
-**Modelo general (energía):**
-\[
-Q_{in} - Q_{out} = C \frac{dT}{dt}
-\]
+🔑 > *Forma canónica*: Forma estándar de una función de transferencia que permite identificar claramente la ganancia estática y la constante de tiempo:
+$$
+G(s) = \frac{K}{\tau s + 1}, \quad K = \frac{c}{b}, \quad \tau = \frac{a}{b}
+$$
 
 ---
 
-## 2. Función de Transferencia
+## 2. Respuesta a entradas
 
-### 🔹 Definición
+### 2.1 Entrada escalón
 
-\[
-G(s) = \frac{Y(s)}{U(s)}
-\]
+💡Ejemplo 1:
+Sea un sistema cuya función de transferencia es:
+$$
+G(s) = \frac{5}{2s + 16}
+$$
+Convirtiéndola a forma canónica:
+$$
+G(s) = \frac{0.3125}{0.125s + 1}
+$$
+Donde \( K = 0.3125 \), \( \tau = 0.125 \)
 
-Condiciones iniciales = 0 (para modelos de control).
+🔑 > *Respuesta al escalón*:
+$$
+y(t) = AK \left(1 - e^{-\frac{t}{\tau}}\right)
+$$
 
-### 🔹 Clasificación
+### 2.2 Entrada rampa
 
-- **Propia**: \( \deg N(s) \leq \deg D(s) \)
-- **Impropia**: \( \deg N(s) > \deg D(s) \)
-
-### 🔹 Polos y Ceros
-
-- **Ceros**: raíces del numerador \( N(s) = 0 \)
-- **Polos**: raíces del denominador \( D(s) = 0 \)
-
-**Ejemplo:**
-\[
-G(s) = \frac{3s - 1}{s^2 + 3s + 2} \Rightarrow \text{Cero: } \frac{1}{3}, \text{Polos: } -1, -2
-\]
-
----
-
-## 3. Modelamiento con Diagramas de Bloques
-
-- Usan bloques con funciones de transferencia interconectadas.
-- Permite representar modelos complejos como motores, sistemas térmicos o hidráulicos.
-
-**Ejemplo:**
-Motor DC con entrada \( V_a \) y salida \( \theta(t) \)
+💡Ejemplo 2:
+$$
+Y(s) = \frac{AK}{s^2(\tau s + 1)} \Rightarrow y(t) = AK \left(t - \tau + \tau e^{-t/\tau} \right)
+$$
 
 ---
 
-## 4. Álgebra de Bloques
+## 3. Representación gráfica
 
-### 🔹 Reglas básicas
-
-- **Cascada**: \( G_{total}(s) = G_1(s) \cdot G_2(s) \)
-- **Paralelo**: \( G_{total}(s) = G_1(s) + G_2(s) \)
-- **Realimentación negativa**:
-\[
-T(s) = \frac{G(s)}{1 + G(s)H(s)}
-\]
+![Curva de respuesta escalón](imagenes/respuesta_orden1.png)  
+**Figura 1.** Curva típica de respuesta escalón en un sistema de primer orden
 
 ---
 
-## 5. Diagramas de Flujo de Señal
+## 4. Tabla de identificación
 
-- Representación de sistemas con **nodos** y **flechas**.
-- Se usa la **fórmula de Mason**:
+💡Ejemplo 3:
 
-\[
-T(s) = \frac{\sum P_k \Delta_k}{\Delta}
-\]
+| Parámetro | Valor     |
+|-----------|-----------|
+| \( K \)   | 0.3125    |
+| \( \tau \)| 0.125 s   |
+| Tipo de entrada | Escalón unitario |
+| Salida final esperada | \( AK = 0.3125 \) |
 
-Donde:
-- \( P_k \): ganancia del camino directo,
-- \( \Delta \): determinante considerando lazos.
-
----
-
-## 6. Sistemas de Primer Orden
-
-### 🔹 Forma general:
-
-\[
-G(s) = \frac{K}{\tau s + 1}
-\]
-
-- \( K \): ganancia estática
-- \( \tau \): constante de tiempo
-
-### 🔹 Respuesta al escalón
-
-\[
-y(t) = AK(1 - e^{-t/\tau})
-\]
+**Tabla 1.** Parámetros identificados para un sistema de primer orden
 
 ---
 
-## 7. Sistemas de Segundo Orden
+## 5. Código
 
-### 🔹 Forma canónica:
+💡Ejemplo 4: Código en MATLAB para graficar la respuesta escalón
+```matlab
+K = 0.3125;
+tau = 0.125;
+t = 0:0.01:1;
+y = K * (1 - exp(-t/tau));
+plot(t, y);
+xlabel('Tiempo (s)');
+ylabel('Salida y(t)');
+title('Respuesta escalón - Sistema de Primer Orden');
 
-\[
-G(s) = \frac{K \omega_n^2}{s^2 + 2\zeta\omega_n s + \omega_n^2}
-\]
 
-- \( \omega_n \): frecuencia natural
-- \( \zeta \): factor de amortiguamiento
+Ejercicio 1
+Dado el sistema con función de transferencia:
 
-### 🔹 Casos
+𝐺
+(
+𝑠
+)
+=
+10
+3
+𝑠
++
+5
+G(s)= 
+3s+5
+10
+​
+ 
+Determine 
+𝐾
+K y 
+𝜏
+τ
 
-- **Subamortiguado** (\( \zeta < 1 \)): oscilatorio
-- **Críticamente amortiguado** (\( \zeta = 1 \))
-- **Sobreamortiguado** (\( \zeta > 1 \))
+Encuentre la respuesta al escalón unitario
 
-### 🔹 Respuesta típica (subamortiguado):
+✅ Solución:
 
-\[
-y(t) = K A \left(1 - e^{-\zeta \omega_n t} \left[ \cos(\omega_d t) + \frac{\zeta}{\sqrt{1 - \zeta^2}} \sin(\omega_d t) \right] \right)
-\]
+𝐾
+=
+10
+5
+=
+2
+,
+𝜏
+=
+3
+5
+=
+0.6
+K= 
+5
+10
+​
+ =2,τ= 
+5
+3
+​
+ =0.6
+𝑦
+(
+𝑡
+)
+=
+1
+⋅
+2
+(
+1
+−
+𝑒
+−
+𝑡
+/
+0.6
+)
+y(t)=1⋅2(1−e 
+−t/0.6
+ )
+Ejercicio 2
+Una planta química tiene una ganancia estática de 4 y una constante de tiempo de 2 s. Obtenga la función de transferencia y la respuesta al escalón unitario.
 
----
+✅ Solución:
 
-## ✍️ Notas Finales
+𝐺
+(
+𝑠
+)
+=
+4
+2
+𝑠
++
+1
+⇒
+𝑦
+(
+𝑡
+)
+=
+4
+(
+1
+−
+𝑒
+−
+𝑡
+/
+2
+)
+G(s)= 
+2s+1
+4
+​
+ ⇒y(t)=4(1−e 
+−t/2
+ )
+10. Conclusiones
+Los sistemas de primer orden permiten modelar fenómenos simples pero muy representativos de la realidad. El análisis de su función de transferencia y respuesta a entradas estándar (escalón, rampa) nos da herramientas clave para predecir el comportamiento de un sistema. Los parámetros 
+𝜏
+τ y 
+𝐾
+K son esenciales para el diseño de controladores.
 
-Este resumen fue elaborado con base en las presentaciones del curso de Dinámica de Sistemas, utilizando referencias como Ogata, C. Chen, R. Hernández y N. Nise.
