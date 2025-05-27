@@ -1,0 +1,68 @@
+# Clase: Sistemas Hidráulicos
+
+En esta clase se abordará el modelamiento de sistemas hidráulicos, que son esenciales en ingeniería de procesos y control. Estos sistemas permiten representar tanques, válvulas y tuberías, y son una analogía directa de sistemas eléctricos o térmicos. Su estudio se centra en cómo varía el nivel del fluido o el caudal frente a una entrada, y se modelan usando ecuaciones diferenciales basadas en balances de masa o energía.
+
+---
+
+## 1. Modelos de Tanques Hidráulicos
+
+### 1.1 Tanque simple
+
+🔑 > *Tanque simple*: Sistema con una entrada de flujo constante y una salida proporcional al nivel del líquido. Su dinámica se describe por una ecuación diferencial de primer orden.
+
+**Ecuación diferencial del sistema**:
+A1 * (dh1/dt) = qi - h1/R1
+
+**Función de transferencia** (forma canónica):
+H1(s)/Qi(s) = R1 / (R1A1s + 1)
+
+💡Ejemplo 1:
+
+Un tanque con A1 = 2 m² y R1 = 5 s/m². Determine la función de transferencia.
+
+**Solución**:
+H1(s)/Qi(s) = 5 / (10s + 1)
+
+
+
+### 1.2 Salida como variable de interés
+
+🔑 > *Caudal de salida*: Se puede modelar como variable de salida, usando la relación q1 = h1 / R1.
+
+Entonces: R1A1(dq1/dt) = qi - q1
+
+---
+
+## 2. Dos Tanques Interconectados
+
+🔑 > *Tanques interconectados*: Sistema de dos tanques donde el flujo entre ellos depende de la diferencia de niveles.
+
+**Ecuaciones del sistema**:
+q1 = (h1 - h2)/R1
+q2 = h2 / R2
+
+A1*(dh1/dt) = qi - q1
+A2*(dh2/dt) = q1 - q2
+
+💡Ejemplo 2:
+
+Para A1 = A2 = 1 m², R1 = R2 = 2 s/m², encuentre la ecuación que relaciona h2 con qi.
+
+**Solución** (esbozo):
+1. Derivar q1 y q2 en función de h1 y h2.
+2. Sustituir y eliminar variables intermedias para llegar a:
+A1R1R2A2 * d²q2/dt² + (A1R1 + A1R2 + R2A2) * dq2/dt + q2 = qi
+
+---
+
+## 3. Representación Gráfica
+
+![Tanque simple](imagenes/tanque_simple.png)  
+**Figura 1.** Representación de un tanque con entrada y salida
+
+---
+
+## 4. Tabla de parámetros
+
+|
+
